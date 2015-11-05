@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"unicode/utf8"
+	"unicode"
 )
 
 type itemType int
@@ -819,10 +820,17 @@ func isHexadecimal(r rune) bool {
 		(r >= 'A' && r <= 'F')
 }
 
-func isBareKeyChar(r rune) bool {
+func isBareKeyChar_o(r rune) bool {
 	return (r >= 'A' && r <= 'Z') ||
 		(r >= 'a' && r <= 'z') ||
 		(r >= '0' && r <= '9') ||
+		r == '_' ||
+		r == '-'
+}
+
+func isBareKeyChar(r rune) bool {
+	return unicode.IsLetter(r) ||
+		unicode.IsDigit(r) ||
 		r == '_' ||
 		r == '-'
 }
